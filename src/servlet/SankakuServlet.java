@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Shohin;
-import model.ShohinDAO;
+import model.Sankaku;
 
 /**
- * Servlet implementation class ShouhinListServlet
+ * Servlet implementation class SankakuServlet
  */
-@WebServlet("/slist")
-public class ShouhinListServlet extends HttpServlet {
+@WebServlet("/menseki")
+public class SankakuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShouhinListServlet() {
+    public SankakuServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +30,16 @@ public class ShouhinListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ShohinDAO sdao = new ShohinDAO();
-		ArrayList<Shohin> slist = sdao.findAll();
-		
-		request.setAttribute("list", slist);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/slist.jsp");
+		int num1 = Integer.parseInt(request.getParameter("num1"));
+		int num2 = Integer.parseInt(request.getParameter("num2"));
+		Sankaku s = new Sankaku(num1, num2);
+
+		request.setAttribute("sankaku", s);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sankaku.jsp");
 		dispatcher.forward(request, response);
+
+
 	}
 
 	/**

@@ -6,8 +6,17 @@
 </head>
 <body>
 <form action="shouhin" method="get">
-sidは？？:<input type = "text" name="sid"><br>
+sidは？？:<input type = "text" name="sid" value="3"><br>
 <input type = "submit" value = "お願いします。探してください。">
 </form>
+
+<form action="shouhin" method="get">
+<input type = "hidden" name = "sid" value = "3">
+<input type = "submit" value = "sidは3(いちご)でいいです。よろしくお願いいたします。">
+</form>
+
+<a href ="shouhin?sid=1">りんご</a>
+<a href ="shouhin?sid=2">みかん</a>
+<a href ="shouhin?sid=3">いちご</a>
 </body>
 </html>

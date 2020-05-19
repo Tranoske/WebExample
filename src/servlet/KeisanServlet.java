@@ -3,11 +3,14 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.Keisan;
 
 /**
  * Servlet implementation class KeisanServlet
@@ -30,21 +33,14 @@ public class KeisanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num1 = Integer.parseInt(request.getParameter("num1"));
 		int num2 = Integer.parseInt(request.getParameter("num2"));
-		int sum = num1 + num2;
+		int mode = Integer.parseInt(request.getParameter("mode"));
 
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
+		Keisan k = new Keisan(num1, num2, mode);
 
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>ゲットの真実</title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>気になる計算結果は.....</h1>");
-		out.println("<p>"+num1+"＋"+num2+"＝"+sum+"</p>");
-		out.println("<p>"+"</p>");
-		out.println("</body>");
-		out.println("</html>");
+		request.setAttribute("keisan", k);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/keisan.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -57,19 +53,11 @@ public class KeisanServlet extends HttpServlet {
 		int num2 = Integer.parseInt(request.getParameter("num2"));
 		int sum = num1 + num2;
 
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>ポストの真実</title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>気になる計算結果は.....</h1>");
-		out.println("<p>"+num1+"＋"+num2+"＝"+sum+"</p>");
-		out.println("<p>"+"</p>");
-		out.println("</body>");
-		out.println("</html>");
+		request.setAttribute("num1", num1);
+		request.setAttribute("num2", num2);
+		request.setAttribute("sum", sum);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/keisan.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

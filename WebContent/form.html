@@ -2,12 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>フォーーーーーーム</title>
+<title>フォーム</title>
 </head>
 <body>
-<form action="form" method="post">
+<form action="form" method="get">
 名前:<input type = "text" name="name"><br>
-性別:<input type = "text" name="gender"><br>
+性別:<br>
+男性<input type = "radio" name="gender" value="0" checked><br>
+女性<input type = "radio" name="gender" value="1"><br>
+その他<input type = "radio" name="gender" value="2"><br>
+メルマガ登録<input type = "checkbox" name="mail"><br>
+都道府県
+<select name = "ken">
+<option value = "kumamoto">熊本</option>
+<option value = "fukuoka">福岡</option>
+<option value = "nagasaki">長崎</option>
+</select>
+お問い合わせ内容<br>
+<textarea name = "body"></textarea>
+<input type = "hidden" name = "gamen" value = "a1">
 <input type = "submit" value = "送信">
 </form>
 </body>

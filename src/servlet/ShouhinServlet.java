@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,19 +36,10 @@ public class ShouhinServlet extends HttpServlet {
 		ShohinDAO sdao = new ShohinDAO();
 		Shohin s = sdao.findBySid(sid);
 
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
+		request.setAttribute("shouhin", s);
 
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>shouhin</title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<p>商品ＩＤ："+s.getSid()+"</p>");
-		out.println("<p>商品名："+s.getName()+"</p>");
-		out.println("<p>単価："+s.getTanka()+"円</p>");
-		out.println("</body>");
-		out.println("</html>");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/shouhin.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Shohin;
-import model.ShohinDAO;
+import model.Uriage;
+import model.UriageDAO;
 
 /**
- * Servlet implementation class ShouhinListServlet
+ * Servlet implementation class UriageListServlet
  */
-@WebServlet("/slist")
-public class ShouhinListServlet extends HttpServlet {
+@WebServlet("/ulist")
+public class UriageListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShouhinListServlet() {
+    public UriageListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +32,12 @@ public class ShouhinListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ShohinDAO sdao = new ShohinDAO();
-		ArrayList<Shohin> slist = sdao.findAll();
-		
-		request.setAttribute("list", slist);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/slist.jsp");
+		UriageDAO udao = new UriageDAO();
+		ArrayList<Uriage> ulist = udao.findAll();
+
+		request.setAttribute("list", ulist);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/ulist.jsp");
 		dispatcher.forward(request, response);
 	}
 

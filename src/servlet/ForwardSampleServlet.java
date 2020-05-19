@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Shohin;
-import model.ShohinDAO;
-
 /**
- * Servlet implementation class ShouhinListServlet
+ * Servlet implementation class ForwardSampleServlet
  */
-@WebServlet("/slist")
-public class ShouhinListServlet extends HttpServlet {
+@WebServlet("/forward")
+public class ForwardSampleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShouhinListServlet() {
+    public ForwardSampleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +28,7 @@ public class ShouhinListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ShohinDAO sdao = new ShohinDAO();
-		ArrayList<Shohin> slist = sdao.findAll();
-		
-		request.setAttribute("list", slist);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/slist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/forwardSample.jsp");
 		dispatcher.forward(request, response);
 	}
 
