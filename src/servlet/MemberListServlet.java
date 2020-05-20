@@ -51,20 +51,10 @@ public class MemberListServlet extends HttpServlet {
 			String adr = request.getParameter("adr");
 
 			if(name.length() == 0) {
-				request.setAttribute("errMsg", "なまえを いれてね。");
-				request.setAttribute("url", "mlist");
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
-				dispatcher.forward(request, response);
-				return;
+				throw new IllegalArgumentException("なまえを いれようね。");
 			}
 			if(adr.length() == 0) {
-				request.setAttribute("errMsg", "じゅうしょを いれてね。");
-				request.setAttribute("url", "insert.html");
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
-				dispatcher.forward(request, response);
-				return;
+				throw new IllegalArgumentException("じゅうしょを いれようね。");
 			}
 
 		MemberDAO mdao = new MemberDAO();
