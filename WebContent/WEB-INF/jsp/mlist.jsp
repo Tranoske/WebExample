@@ -31,12 +31,6 @@ table{
 		<td>${mlist.name}</td>
 		<td>${mlist.adr}</td>
 		<td><a href="mupdate?mid=${mlist.mid}">変更</a></td>
-		<td>
-		<form action="mdel" method="post"><input type = "hidden" name="mid" value ="${mlist.mid}">
-		<input type = "submit" value = "削除">
-		</form>
-
-		</td>
 	</tr>
 </c:forEach>
 </table>
