@@ -14,11 +14,9 @@
 住所？：<input type = "text" name="adr" value="${m.adr}"><br>
 <input type = "submit" value = "更新！">
 </form>
-
 <form action="mdel" method="post">
 <input type = "hidden" name="mid" value ="${m.mid}">
 <input type = "submit" value = "削除！">
-
 </form>
 </body>
 </html>

@@ -64,7 +64,7 @@ public class MemberListServlet extends HttpServlet {
 			response.sendRedirect("mlist");
 
 		} catch (Exception e) {
-			request.setAttribute("errMsg", e.getMessage());
+			request.setAttribute("errMsg", e.getMessage()+e.getStackTrace());
 			request.setAttribute("url", "mlist");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");

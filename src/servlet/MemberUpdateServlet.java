@@ -46,16 +46,31 @@ public class MemberUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		try {
+			request.setCharacterEncoding("UTF-8");
 
-		int mid = Integer.parseInt(request.getParameter("mid"));
-		String name = request.getParameter("name");
-		String adr = request.getParameter("adr");
+			int mid = Integer.parseInt(request.getParameter("mid"));
+			String name = request.getParameter("name");
+			String adr = request.getParameter("adr");
+			if(name.length() == 0) {
+				throw new IllegalArgumentException("なまえを いれようね。");
+			}
+			if(adr.length() == 0) {
+				throw new IllegalArgumentException("じゅうしょを いれようね。");
+			}
 
-		MemberDAO mdao = new MemberDAO();
-		mdao.update(new Member(mid, name, adr));
+			MemberDAO mdao = new MemberDAO();
+			mdao.update(new Member(mid, name, adr));
 
-		response.sendRedirect("mlist");
+			response.sendRedirect("mlist");
+		} catch (Exception e) {
+			request.setAttribute("errMsg", e.getMessage()+e.getStackTrace());
+			request.setAttribute("url", "mlist");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+			dispatcher.forward(request, response);
+		}
+
 	}
 
 }
