@@ -45,6 +45,7 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 			request.setCharacterEncoding("UTF-8");
 
 			String name = request.getParameter("name");
@@ -57,10 +58,20 @@ public class MemberListServlet extends HttpServlet {
 				throw new IllegalArgumentException("じゅうしょを いれようね。");
 			}
 
-		MemberDAO mdao = new MemberDAO();
-		mdao.insert(new Member(0, name, adr));
+			MemberDAO mdao = new MemberDAO();
+			mdao.insert(new Member(0, name, adr));
 
-		response.sendRedirect("mlist");
+			response.sendRedirect("mlist");
+
+		} catch (Exception e) {
+			request.setAttribute("errMsg", e.getMessage());
+			request.setAttribute("url", "mlist");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+			dispatcher.forward(request, response);
+		}
+
+
 
 	}
 
