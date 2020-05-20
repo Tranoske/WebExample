@@ -17,7 +17,7 @@
 
 <form action="mdel" method="post">
 <input type = "hidden" name="mid" value ="${m.mid}">
-<input type = "submit" value = "削除">
+<input type = "submit" value = "削除！">
 
 </form>
 </body>

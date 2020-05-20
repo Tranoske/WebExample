@@ -28,9 +28,8 @@ table{
 <tr><th>氏名</th><th>住所</th></tr>
 <c:forEach var="mlist" items="${list}">
 	<tr>
-		<td>${mlist.name}</td>
+		<td><a href="mupdate?mid=${mlist.mid}">${mlist.name}</a></td>
 		<td>${mlist.adr}</td>
-		<td><a href="mupdate?mid=${mlist.mid}">変更</a></td>
 	</tr>
 </c:forEach>
 </table>
