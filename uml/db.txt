@@ -3,5 +3,5 @@ table: kban
 column:
 kid, int PK NN AI
 name, varchar(45)
-date, date
-text, text
+hi, date
+bun, text

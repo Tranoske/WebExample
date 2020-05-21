@@ -5,6 +5,7 @@ autonumber "#."
 
 actor ユーザ
 participant KbanServlet
+participant kban.jsp
 participant KbanDAO
 database kbanDB
 participant Kban
@@ -15,5 +16,6 @@ KbanDAO -> kbanDB:データ検索
 kbanDB --> KbanDAO:掲示板
 KbanDAO -> Kban:生成
 KbanDAO --> KbanServlet:ArrayList
-KbanServlet -[#green]> ユーザ:表示
+KbanServlet -> kban.jsp:フォワード
+kban.jsp -[#green]> ユーザ:表示
 @enduml

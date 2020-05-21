@@ -4,19 +4,25 @@ title 書き込みの削除
 autonumber "#."
 
 actor ユーザ
+participant kban.jsp
 participant KbanServlet
+participant kdel.jsp
 participant KdelServlet
 database kbanDB
 participant Kban
 
-ユーザ -[#green]> KbanServlet:削除ボタン
+ユーザ -[#green]> kban.jsp:削除ボタン
+kban.jsp -> KbanServlet:入力
 KbanServlet -[#blue]> KdelServlet:遷移
 KdelServlet -> kbanDB:データ検索
-kbanDB -> Kban:生成
-kbanDB --> KdelServlet:掲示板
-KdelServlet --[#green]> ユーザ:確認画面
-ユーザ -[#green]> KdelServlet:削除ボタン
+kbanDB --> KdelServlet:削除データ
+KdelServlet -> Kban:生成
+KdelServlet -> kdel.jsp:フォワード
+kdel.jsp --[#green]> ユーザ:確認画面
+ユーザ -[#green]> kdel.jsp:削除ボタン
+kdel.jsp -> KdelServlet:入力
 KdelServlet -> kbanDB:削除
-KdelServlet -[#blue]> KbanServlet:遷移
-KbanServlet --[#green]> ユーザ:表示
+KdelServlet -[#blue]> KbanServlet:リダイレクト
+KbanServlet --> kban.jsp:フォワード
+kban.jsp -[#green]> ユーザ:表示
 @enduml
