@@ -1,0 +1,28 @@
+@startuml
+package servlet{
+	class KbanServlet{
+		+doGet()
+		+doPost()
+	}
+	class KdelServlet{
+		+doGet()
+		+doPost()
+	}
+}
+package model{
+	class Kban{
+		-kid
+		-hi
+		-name
+		-bun
+	}
+	class KbanDAO{
+		+findAll():掲示板
+		+findByKid(kid):一個探す
+		+insert(name, bun):追加
+		+del(kid):削除
+	}
+KbanServlet..>KbanDAO
+KdelServlet..>KbanDAO
+KbanDAO "1" *-- "0..*" Kban
+@enduml
