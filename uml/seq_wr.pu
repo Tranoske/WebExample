@@ -1,0 +1,19 @@
+@startuml
+title 書き込む
+
+autonumber "#."
+
+actor ユーザ
+participant KbanServlet
+participant KbanDAO
+participant Kban
+database kbanDB
+
+ユーザ -[#green]> KbanServlet:書き込む
+KbanServlet -> KbanDAO:生成
+KbanDAO -> Kban:生成
+KbanDAO -> kbanDB:書き込み
+kbanDB --> KbanDAO:全データ
+KbanDAO --> KbanServlet:List
+KbanServlet -[#green]> ユーザ:表示
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title 書き込みの削除
+
+autonumber "#."
+
+actor ユーザ
+participant KbanServlet
+participant KdelServlet
+database kbanDB
+participant Kban
+
+ユーザ -[#green]> KbanServlet:削除ボタン
+KbanServlet -[#blue]> KdelServlet:遷移
+KdelServlet -> kbanDB:データ検索
+kbanDB -> Kban:生成
+kbanDB --> KdelServlet:掲示板
+KdelServlet --[#green]> ユーザ:確認画面
+ユーザ -[#green]> KdelServlet:削除ボタン
+KdelServlet -> kbanDB:削除
+KdelServlet -[#blue]> KbanServlet:遷移
+KbanServlet --[#green]> ユーザ:表示
+@enduml
