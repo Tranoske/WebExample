@@ -1,0 +1,14 @@
+@startuml
+title 掲示板
+kban : 書き込み一覧
+kdel:GET 削除確認\nPOST 削除
+write:\nPOST 書込
+
+[*]->kban
+kban-->kdel:リンク\nkid
+kdel-->kban:いいえ\nリンク
+kdel-->kdel:POST\nkid
+kban-->write:POST\nkid\nname\ntext
+write-->kban
+
+@enduml
