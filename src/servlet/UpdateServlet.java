@@ -2,23 +2,27 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Shohin;
+import model.ShohinDAO;
+
 /**
- * Servlet implementation class MemberDelServlet
+ * Servlet implementation class UpdateServlet
  */
-@WebServlet("/mdel")
-public class MemberDelServlet extends HttpServlet {
+@WebServlet("/update")
+public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDelServlet() {
+    public UpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,8 +31,15 @@ public class MemberDelServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int sid = Integer.parseInt(request.getParameter("sid"));
+
+		ShohinDAO sdao = new ShohinDAO();
+		Shohin s = sdao.findBySid(sid);
+
+		request.setAttribute("s", s);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/update.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -37,7 +48,14 @@ public class MemberDelServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		
+		int sid = Integer.parseInt(request.getParameter("sid"));
+		String sname = request.getParameter("name");
+		int tanka = Integer.parseInt(request.getParameter("price"));
+
+		ShohinDAO sdao = new ShohinDAO();
+		sdao.update(new Shohin(sid, sname, tanka));
+
+		response.sendRedirect("slist");
 	}
 
 }

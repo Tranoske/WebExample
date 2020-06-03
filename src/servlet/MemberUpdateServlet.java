@@ -48,22 +48,32 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
+			String act = request.getParameter("action");
 
-			int mid = Integer.parseInt(request.getParameter("mid"));
-			String name = request.getParameter("name");
-			String adr = request.getParameter("adr");
-			if(name.length() == 0) {
-				throw new IllegalArgumentException("なまえを いれようね。");
+			if (act.equals("update")) {
+				int mid = Integer.parseInt(request.getParameter("mid"));
+				String name = request.getParameter("name");
+				String adr = request.getParameter("adr");
+				if(name.length() == 0) {
+					throw new IllegalArgumentException("なまえを いれようね。");
+				}
+				if(adr.length() == 0) {
+					throw new IllegalArgumentException("じゅうしょを いれようね。");
+				}
+
+				MemberDAO mdao = new MemberDAO();
+				mdao.update(new Member(mid, name, adr));
+
+
+			}else if(act.equals("del")) {
+				int mid = Integer.parseInt(request.getParameter("mid"));
+
+				MemberDAO mdao = new MemberDAO();
+				mdao.delete(mid);
 			}
-			if(adr.length() == 0) {
-				throw new IllegalArgumentException("じゅうしょを いれようね。");
-			}
-
-			MemberDAO mdao = new MemberDAO();
-			mdao.update(new Member(mid, name, adr));
-
 			response.sendRedirect("mlist");
-		} catch (Exception e) {
+
+		} catch (IllegalArgumentException e) {
 			request.setAttribute("errMsg", e.getMessage()+e.getStackTrace());
 			request.setAttribute("url", "mlist");
 

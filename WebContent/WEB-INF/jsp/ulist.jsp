@@ -18,6 +18,10 @@ table{
 </head>
 <body>
 <h1>売上一覧！</h1>
+<p>歓迎、${user.uname}様！</p>
+<p>電子手紙：${user.mail }</p>
+<a href="logout">🔓認証解除</a>
+<h3><a href="uinsert">追加</a>  <a href="slist">全商品一覧！</a></h3>
 <table>
 <tr><th>売上ID</th><th>商品ID</th><th>個数</th><th>日付</th></tr>
 <c:forEach var="uriage" items="${list}">
@@ -26,6 +30,7 @@ table{
 		<td>${uriage.sid}</td>
 		<td>${uriage.kosu}</td>
 		<td>${uriage.hi}</td>
+		<td><a href="uinfo?uid=${uriage.uid}">詳細</a></td>
 	</tr>
 </c:forEach>
 </table>

@@ -16,16 +16,16 @@ import model.Uriage;
 import model.UriageDAO;
 
 /**
- * Servlet implementation class UriageServlet
+ * Servlet implementation class UriageInsertServlet
  */
-@WebServlet("/uriage")
-public class UriageServlet extends HttpServlet {
+@WebServlet("/uinsert")
+public class UriageInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UriageServlet() {
+    public UriageInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +34,18 @@ public class UriageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int sid = Integer.parseInt(request.getParameter("sid"));
-		UriageDAO udao = new UriageDAO();
-		ShohinDAO sdao = new ShohinDAO();
+		try {
+			ShohinDAO sdao = new ShohinDAO();
+			ArrayList<Shohin> slist = sdao.findAll();
 
-		Shohin s = sdao.findBySid(sid);
-		ArrayList<Uriage> ulist = udao.FindBySid(sid);
+			request.setAttribute("list", slist);
 
-		request.setAttribute("s",s);
-		request.setAttribute("list", ulist);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/uriage.jsp");
-		dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/uinsert.jsp");
+			dispatcher.forward(request, response);
+		}catch (NumberFormatException e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	/**
@@ -63,15 +63,16 @@ public class UriageServlet extends HttpServlet {
 			UriageDAO udao = new UriageDAO();
 			udao.insert(new Uriage(0, sid, kosu, sd));
 
-			response.sendRedirect("uriage?sid="+sid);
+			response.sendRedirect("ulist");
 
 		}catch (NumberFormatException e) {
 			request.setAttribute("errMsg", "こすうには すうじを いれてね。");
-			request.setAttribute("url", "uriage?sid="+Integer.parseInt(request.getParameter("sid")));
+			request.setAttribute("url", "uinsert");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
 			dispatcher.forward(request, response);
 		}
+
 	}
 
 }

@@ -4,13 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>三角形の面積は...</title>
+<title>本当に面積が表示される</title>
 </head>
 <body>
-<h1>気になる三角形の面積.....</h1>
+<h1>気になる三角形の面積..本当に教えます...</h1>
 <p>底辺(${sankaku.num1 })、高さ(${sankaku.num2 })の面積</p>
-<form action="menseki" method="get">
-<input type="submit" value="本当に見る">
-</form>
+<h3>${sankaku.ans }</h3>
 </body>
 </html>

@@ -29,5 +29,12 @@ table{
 	</tr>
 </c:forEach>
 </table>
+
+<form method="post" action="uriage">
+<input type = "hidden" name="sid" value="${s.sid}"><br>
+個数？：<input type = "text" name="kosu">
+<input type = "submit" value = "追加！">
+</form>
+
 </body>
 </html>

@@ -10,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Sankaku;
+import model.User;
+import model.UserDAO;
 
 /**
- * Servlet implementation class SankakuServlet
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/sankaku")
-public class SankakuServlet extends HttpServlet {
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SankakuServlet() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +32,16 @@ public class SankakuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num1 = Integer.parseInt(request.getParameter("num1"));
-		int num2 = Integer.parseInt(request.getParameter("num2"));
-		Sankaku s = new Sankaku(num1, num2);
-
 		HttpSession session = request.getSession();
-		session.setAttribute("sankaku", s);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sankaku.jsp");
+		String error = (String)session.getAttribute("error");
+
+		if(error != null) {
+			request.setAttribute("mes", error);
+			session.removeAttribute("error");
+		}
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -46,8 +49,21 @@ public class SankakuServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String uname = request.getParameter("name");
+		String pass = request.getParameter("pass");
+		UserDAO udao = new UserDAO();
+		User u = udao.login(uname, pass);
+
+		if(u != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", u);
+			response.sendRedirect("ulist");
+		}else {
+			HttpSession session = request.getSession();
+			session.setAttribute("error", "異常！你多分異暗号！");
+			response.sendRedirect("login");
+		}
 	}
 
 }

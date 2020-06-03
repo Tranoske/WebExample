@@ -18,7 +18,9 @@ table{
 </head>
 <body>
 <h1>商品一覧！</h1>
-<h3><a href="insert.html">追加！</a></h3>
+
+
+<h3><c:if test="${not empty user}"><a href="insert.html">追加！</a></c:if><c:if test="${empty user}">追加！</c:if><a href="ulist">全売上一覧！</a></h3>
 <table>
 <tr><th>商品ＩＤ</th><th>商品名</th><th>単価(円)</th></tr>
 <c:forEach var="shohin" items="${list}">
@@ -26,9 +28,9 @@ table{
 		<td>${shohin.sid}</td>
 		<td>${shohin.name}</td>
 		<td>${shohin.tanka}</td>
-		<td><a href="update?sid=${shohin.sid}">変更</a></td>
-		<td><a href="del?sid=${shohin.sid}">削除</a></td>
 		<td><a href="uriage?sid=${shohin.sid}">売上</a></td>
+		<td><c:if test="${not empty user}"><a href="update?sid=${shohin.sid}">変更</a></c:if><c:if test="${empty user}">変更</c:if></td>
+		<td><c:if test="${not empty user}"><a href="del?sid=${shohin.sid}">削除</a></c:if><c:if test="${empty user}">削除</c:if></td>
 	</tr>
 </c:forEach>
 </table>
